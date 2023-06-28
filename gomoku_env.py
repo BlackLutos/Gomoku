@@ -105,12 +105,12 @@ class Gomoku(tk.Tk, object):
     def show_win(self, current_player):
         if current_player == 'black':
             print('White win')
-            tkinter.messagebox.showinfo(title='Game Over', message='White win ! Restart Game.')
+            tkinter.messagebox.showinfo(title='Game Over', message='White chess win ! \nRestart Game.')
             self.reset()
 
         elif current_player == 'white':
             print('black win')
-            reply = tkinter.messagebox.showinfo(title='Game Over', message='Black win ! Restart Game.')
+            reply = tkinter.messagebox.showinfo(title='Game Over', message='Black chess win ! \nRestart Game.')
             self.reset()
 
 
@@ -135,8 +135,3 @@ class Gomoku(tk.Tk, object):
         self.canvas.delete('chess')
         self.current_chessboard = np.zeros((self.size, self.size))
         self.current_player = 'black'
-
-if __name__ == '__main__':
-    env = Gomoku()
-    # env.player()
-    env.mainloop()
