@@ -1,6 +1,7 @@
 import tkinter as tk
 import tkinter.messagebox
 from tkinter import ttk
+import tkinter.simpledialog as sd
 import numpy as np
 
 
@@ -15,10 +16,25 @@ class Gomoku(tk.Tk, object):
         x = (screen_width - self.winfo_width()) // 3
         y = (screen_height - self.winfo_height()) // 4
         self.geometry('{0}x{1}+{2}+{3}'.format(510, self.size*30, x, y))
-        self.current_player = 'black'
+        player_choose = tkinter.messagebox.askquestion("Choose Color", "Choose your chess color:\nYes: Black\nNo: White")
+        if player_choose == 'yes':
+            self.current_player = 'black'
+        else:
+            self.current_player = 'white'
         self.current_chessboard = np.zeros((size, size))
         self.build_chessboard()
         self.player()
+    
+    def choose_color():
+        top = tk.Toplevel()
+        top.title("Choose Color")
+        top.geometry("200x100")
+        
+        white_btn = tk.Button(top, text="White", command=lambda: on_color_selected("White"))
+        white_btn.pack(pady=10)
+        
+        black_btn = tk.Button(top, text="Black", command=lambda: on_color_selected("Black"))
+        black_btn.pack(pady=10)
 
     def build_chessboard(self):
         self.canvas = tk.Canvas(self, bg='#f9d65b', height=self.size*30, width=self.size*35)
