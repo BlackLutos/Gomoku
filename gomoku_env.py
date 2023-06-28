@@ -15,9 +15,9 @@ class Gomoku(tk.Tk, object):
         x = (screen_width - self.winfo_width()) // 3
         y = (screen_height - self.winfo_height()) // 4
         self.geometry('{0}x{1}+{2}+{3}'.format(510, self.size*30, x, y))
-        self.build_chessboard()
         self.current_player = 'black'
         self.current_chessboard = np.zeros((size, size))
+        self.build_chessboard()
         self.player()
 
     def build_chessboard(self):
@@ -29,7 +29,8 @@ class Gomoku(tk.Tk, object):
             self.canvas.create_text(15+i*30, 1, text=str(i), anchor='n')
             self.canvas.create_text(1, 8+i*30, text=str(i), anchor='nw')
         
-        self.canvas.create_text(460, 100, text='X', anchor='e')
+        self.canvas.create_text(500, 90, text='Take turns:', anchor='e')
+        self.canvas.create_text(503, 120, text=self.current_player + ' chess', anchor='e', tags='player_text')
 
         self.canvas.pack()
 
@@ -40,9 +41,10 @@ class Gomoku(tk.Tk, object):
         reset_btn = ttk.Button(self.canvas,text="Restart", command=self.reset, style='my.TButton')
         reset_btn.place(x=440, y=400)
 
-        
+    def update_text(self, current_player):
+        self.canvas.delete('player_text')
+        self.canvas.create_text(503, 120, text=self.current_player + ' chess', anchor='e', tags='player_text')
 
-    
     def black(self,event):
         self.draw_chess(event.x//30, event.y//30, 'black')
 
@@ -124,7 +126,8 @@ class Gomoku(tk.Tk, object):
         if self.current_player == 'black':
             print(self.current_chessboard, 'white', '\n')
         elif self.current_player == 'white':
-            print(self.current_chessboard, 'black', '\n')        
+            print(self.current_chessboard, 'black', '\n')     
+        self.update_text(self.current_player)   
         self.player()
 
     def reset(self):
