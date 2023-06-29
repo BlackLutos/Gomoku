@@ -144,4 +144,8 @@ class Gomoku(tk.Tk, object):
         self.update()
         self.canvas.delete('chess')
         self.current_chessboard = np.zeros((self.size, self.size))
-        self.current_player = 'black'
+        player_choose = tkinter.messagebox.askquestion("Choose Color", "Choose your chess color:\nYes: Black\nNo: White")
+        if player_choose == 'yes':
+            self.current_player = 'black'
+        else:
+            self.current_player = 'white'
