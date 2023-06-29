@@ -1,2 +1,6 @@
 # Gomoku
-Gomoku and join RL
+### Windows User
+```
+cd dist/
+./main.exe
+```
