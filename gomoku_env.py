@@ -24,17 +24,6 @@ class Gomoku(tk.Tk, object):
         self.current_chessboard = np.zeros((size, size))
         self.build_chessboard()
         self.player()
-    
-    def choose_color():
-        top = tk.Toplevel()
-        top.title("Choose Color")
-        top.geometry("200x100")
-        
-        white_btn = tk.Button(top, text="White", command=lambda: on_color_selected("White"))
-        white_btn.pack(pady=10)
-        
-        black_btn = tk.Button(top, text="Black", command=lambda: on_color_selected("Black"))
-        black_btn.pack(pady=10)
 
     def build_chessboard(self):
         self.canvas = tk.Canvas(self, bg='#f9d65b', height=self.size*30, width=self.size*35)
@@ -138,6 +127,11 @@ class Gomoku(tk.Tk, object):
         if self.current_chessboard[old_y][old_x] == 0:
             self.canvas.create_oval(x-13, y-13, x+13, y+13, fill=color, tags='chess')
             self.current_chessboard[old_y][old_x] = 1 if color == 'black' else -1
+        else:
+            if self.current_player == 'black':
+                self.current_player = 'white'
+            elif self.current_player == 'white':
+                self.current_player = 'black'
         self.judge_win(self.current_chessboard)
         if self.current_player == 'black':
             print(self.current_chessboard, 'white', '\n')
